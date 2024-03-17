@@ -33,8 +33,17 @@ class HardWork {
   }
 
   do() {
+    let promise = Promise.resolve();
+  
     for (let i = 0; i < this._tasks.length; i++) {
-      this._tasks[i]();
+      const task = this._tasks[i];
+      promise = promise.then(() => {
+        return new Promise((resolve) => {
+          task();
+          this._updateProgressBar(); // 프로그레스 바 갱신
+          setTimeout(resolve, 0); // 비동기적으로 task가 완료되었음을 알림
+        });
+      });
     }
   }
 
