@@ -127,7 +127,7 @@ export function render(parent, newNode, oldNode, index = 0) {
     return;
   } 
   // 4. 만약 newNode와 oldNode의 타입이 다르다면
-  //   oldNode를 newNode로 교체
+  //   oldNode를 newNode로 교체 
   //   종료
   if(typeof newNode !== typeof oldNode) {
     //oldNode.type = newNode.type;
