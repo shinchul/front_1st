@@ -6,10 +6,13 @@ export function createHooks(callback) {
   const stateContext = {
     current: 0,
     states: [],
+
+    //다음렌더링 추가
+    nextRender: null
   };
 
   const memoContext = {
-    current: 0,
+    current: 0, 
     memos: [],
   };
 
@@ -19,6 +22,8 @@ export function createHooks(callback) {
   function resetContext() {
     stateContext.current = 0;
     memoContext.current = 0;
+    //초기화
+    stateContext.nextRender =null;
   }
 
   const useState = (initState) => {
@@ -33,8 +38,10 @@ export function createHooks(callback) {
 
       //callback();
       if(!isBatchingUpdates) {
-        isBatchingUpdates = true;
-        requestAnimationFrame(() => {
+        if(stateContext.nextRender ){
+          cancelAnimationFrame(stateContext.nextRender); //이전 프레임 취소
+        }
+        stateContext.nextRender = requestAnimationFrame(() => {
           callback();
           isBatchingUpdates=false;
         }); 
