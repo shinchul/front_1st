@@ -65,3 +65,5 @@ JuniorEngineer.prototype.isBornGenius = function () {
   // 문제 C
   this._isBornGenius = this._intelligence > 10;
 } -->
+
+# 과제 E 해결
