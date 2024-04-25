@@ -1,70 +1,22 @@
-# Getting Started with Create React App
+# 프로젝트 개요
+- React 프로젝트에서 SEO 대응을 위한 최소 작업 대응
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 개발환경 세팅
+- npx create-react-app chapter3
+- npm install react-helmet-async
+- npm install react-router-dom@6
 
-## Available Scripts
+## Favicon 세팅
+ public/index.html 에 ./favicon.ico 직접 세팅
 
-In the project directory, you can run:
+### 각 파일의 역할
+- favicon.ico
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## SEO 스코어 분석
+- 스코어 분석에 사용한 서비스: (링크 적기, 예: https://www.seobility.net/en/seocheck/)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 개선점
+서버로부터 넘겨지는 SourcePage에는 <meta>나 <title>이 추가되지 않은 채로 넘어오고, Javascript가 실행될 때, 변환됨. JS를 실행한 뒤에 수집하는 크롤러에게는 괜찮겠지만 index.html 파일을 크롤링하는 크롤러는 변환된 메타데이터를 제대로 수집하지 못할 것 같습니다.
+각각의 페이지 별로 index.html이 없기 때문에 발생한 일인 것 같습니다. Prerender를 통해 한 번 해결해 보도록 해봅시다. 
+Prerender를 적용시키기 위해 여러 방안을 고민해보게 되었습니다. React-Snap은 React18버전을 제대로 지원하지 않기 때문에 React의 버전을 17로 다운시켜야 한다는 단점이 있었습니다. 때문에, 다른 방법을 고안해보게 되었고 Puppeteer과 Prerender를 활용
